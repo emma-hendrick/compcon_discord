@@ -1,4 +1,5 @@
 from bot.commands.command_help import cmd_help
+from bot.commands.get_character import get_character_data 
 
 # Handle unknown commands
 async def unknown_command(bot, channel, args, command):
@@ -7,7 +8,8 @@ async def unknown_command(bot, channel, args, command):
 # Define a dictionary to map command names to their corresponding functions
 commands = {
     "compcon": {
-        "help": cmd_help
+        "help": cmd_help,
+        "getchar": get_character_data
         }
 }
 
@@ -37,6 +39,7 @@ async def process_command(bot, message):
             # Get the corresponding function from the commands dictionary
             command_function = current_command_dict[command]
             # Execute the command function
-            await command_function(bot, message.channel, args)
+            async with message.channel.typing():
+                await command_function(bot, message.channel, args)
         except KeyError:
             await unknown_command(bot, message.channel, args, command)
