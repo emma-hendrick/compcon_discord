@@ -1,2 +1,5 @@
 .env
 __pycache__/
+*.log
+*.pid
+nohup.auto.start

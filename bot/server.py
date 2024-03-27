@@ -14,5 +14,5 @@ def index():
 def run_flask():
 
     # Run the flask app
-    app.run(host="0.0.0.0", debug=False, port=8080)
+    app.run(host="0.0.0.0", debug=False, port=8081)
 

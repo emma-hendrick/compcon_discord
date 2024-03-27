@@ -24,6 +24,6 @@ def query_character_bucket(url):
     # Query the bucket and return the character in the desired format
     response = requests.get(url, timeout=2)
     if response.status_code == 200: 
-        return response.json()["name"]
+        return response.json()
     else:
         return {"error": f"response failed with code {response.status_code}: {response.text}"}

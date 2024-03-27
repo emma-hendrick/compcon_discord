@@ -11,4 +11,7 @@ async def on_message(bot, message):
         return
 
     # Process the command!
-    await process_command(bot, message)
+    try:
+        await process_command(bot, message)
+    except Exception as e:
+        print("Error: ", e)
