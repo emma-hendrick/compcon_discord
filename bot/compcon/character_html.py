@@ -1,17 +1,99 @@
+import math
+
 # Generate the html for the users character sheet
-def generate_html(character_json):
+def generate_html(character):
     
-    # Demo HTML content for the PDF
-    dummy_html = """
+    # Start building the html content
+    charname_line = f"{character['callsign']} - {character['name']}"
+    c_id = character["id"]
+    p_name = character["player_name"]
+    description = f"Page for character with id {c_id}, made by player {p_name}"
+    level = character["level"]
+    max_hp = 6 + math.ceil(int(level) / 2)
+    current_hp = int(character["current_hp"])
+    hp_line = f"{current_hp} / {max_hp} HP"
+
+    # Head elements
+    title = f"<title>{charname_line}</title>"
+    
+    # Meta tags
+    description_tag = f"<meta name='description' content='{description}'>"
+    author = f"<meta name='author' content='Emma Hendrick'>"
+    meta = f"""
+        {description_tag}
+        {author}
+    """
+
+    # Amalgamate the head
+    head = f"""
+    <head>
+        {title}
+        {meta}
+    </head>
+    """
+
+    # Body elements
+    header = f"<h1>{charname_line}</h1>"
+    background = f"<h4>{character['background']}</h4>"
+    subheader = f"<h2>Level {level}</h2>"
+    hp = f"<h4>{hp_line}</h4>"
+    description_html = f"<p>{description}</p>"
+    stati = f"<p>Status: {character['status']} <br>Dead: {character['dead']}</p>"
+    notes = f"<p>Notes: {character['notes']}</p>"
+    history = character["history"]
+
+    # Skills
+    skills = character["skills"]
+    skill_content = ""
+    for skill in skills:
+        skill_content += f"<br>Skill: {skill['id']} {skill['rank']}"
+    skill_html = f"<p>{skill_content}</p>"
+
+    # Talents
+    talents = character["talents"]
+    talent_content = ""
+    for talent in talents:
+        talent_content += f"<br>Talent: {talent['id']} {talent['rank']}"
+    talent_html = f"<p>{talent_content}</p>"
+
+    # Mech Skills
+    mech_skills = character["mechSkills"]
+    mech_skill_content = ""
+    mech_skill_names = [
+        "Hull", 
+        "Agility", 
+        "Systems", 
+        "Engineering"
+    ]
+    for index, mech_skill in enumerate(mech_skills):
+        mech_skill_content += f"<br>{mech_skill_names[index]}: {mech_skill}"
+    mech_skill_html = f"<p>{mech_skill_content}</p>"
+
+    # Amalgamate the body
+    body = f"""
+    <body>
+        {header}
+        {background}
+        {subheader}
+        {hp}
+        {description_html}
+        {stati}
+        {notes}
+        {history}
+
+        {skill_html}
+        {talent_html}
+        {mech_skill_html}
+    </body>
+    """
+
+    # Document elements
+    html = f"""
     <html>
-        <head>
-            <title>My PDF</title>
-        </head>
-        <body>
-            <h1>Hello, World!</h1>
-        </body>
+        {head}
+        {body}
     </html>
     """
 
-    # Return the dummy HTML
-    return dummy_html
+    # Return the HTML
+    return html
