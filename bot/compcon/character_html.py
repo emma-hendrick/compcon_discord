@@ -40,21 +40,21 @@ def generate_html(character):
     description_html = f"<p>{description}</p>"
     stati = f"<p>Status: {character['status']} <br>Dead: {character['dead']}</p>"
     notes = f"<p>Notes: {character['notes']}</p>"
-    history = character["history"]
+    history = f"<h4>History</h4>{character['history']}"
 
     # Skills
     skills = character["skills"]
     skill_content = ""
     for skill in skills:
-        skill_content += f"<br>Skill: {skill['id']} {skill['rank']}"
-    skill_html = f"<p>{skill_content}</p>"
+        skill_content += f"{skill['id']} {skill['rank']}<br>"
+    skill_html = f"<h4>Skills</h4><p>{skill_content}</p>"
 
     # Talents
     talents = character["talents"]
     talent_content = ""
     for talent in talents:
-        talent_content += f"<br>Talent: {talent['id']} {talent['rank']}"
-    talent_html = f"<p>{talent_content}</p>"
+        talent_content += f"{talent['id']} {talent['rank']}<br>"
+    talent_html = f"<h4>Talents</h4><p>{talent_content}</p>"
 
     # Mech Skills
     mech_skills = character["mechSkills"]
@@ -66,8 +66,8 @@ def generate_html(character):
         "Engineering"
     ]
     for index, mech_skill in enumerate(mech_skills):
-        mech_skill_content += f"<br>{mech_skill_names[index]}: {mech_skill}"
-    mech_skill_html = f"<p>{mech_skill_content}</p>"
+        mech_skill_content += f"{mech_skill_names[index]}: {mech_skill}<br>"
+    mech_skill_html = f"<h4>Mech Skills</h4><p>{mech_skill_content}</p>"
 
     # Amalgamate the body
     body = f"""
