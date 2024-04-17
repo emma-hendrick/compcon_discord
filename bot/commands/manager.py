@@ -3,7 +3,9 @@ from bot.commands.get_character import get_character_data
 
 # Handle unknown commands
 async def unknown_command(bot, channel, args, command):
-    await channel.send(f"Unknown command \'{command}\'. Type !help for a list of commands.")
+    pass
+    # We will reenable this later, but only in dms
+    # await channel.send(f"Unknown command \'{command}\'. Type !help for a list of commands.")
 
 # Define a dictionary to map command names to their corresponding functions
 commands = {
